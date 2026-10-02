@@ -1,0 +1,142 @@
+<!-- Scroll progress -->
+<div
+  #progress
+  class="fixed inset-x-0 top-0 z-[60] h-[2px] origin-left scale-x-0 bg-gradient-to-r from-brand via-brand-2 to-accent"
+  aria-hidden="true"
+></div>
+
+<a
+  href="#main"
+  class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-bg"
+  >Skip to content</a
+>
+
+<header
+  #bar
+  class="fixed inset-x-0 z-50 flex justify-center px-4 transition-[top] duration-500"
+  [class.top-3]="scrollState.scrolled()"
+  [class.top-5]="!scrollState.scrolled()"
+>
+  <div class="w-full max-w-5xl" cdkTrapFocus [cdkTrapFocusAutoCapture]="false" [cdkTrapFocus]="menuOpen()">
+    <nav
+      aria-label="Primary"
+      class="glass flex h-16 items-center justify-between rounded-full pl-3 pr-2 transition-shadow duration-500"
+      [class.shadow-card]="scrollState.scrolled()"
+    >
+      <a
+        href="#hero"
+        (click)="go($event, 'hero')"
+        class="group flex items-center gap-2.5 rounded-full py-1 pl-1 pr-3"
+        aria-label="Rahi Patel — back to top"
+      >
+        <span
+          class="grid h-10 w-10 place-items-center rounded-full bg-gradient-to-br from-[#0559b5] to-[#13b9fd] font-display text-sm font-bold text-white shadow-[0_6px_20px_-6px_rgb(19_185_253/0.8)] transition-transform duration-500 group-hover:rotate-[360deg]"
+          >{{ profile.initials }}</span
+        >
+        <span class="hidden font-display text-[15px] font-semibold tracking-tight sm:inline">{{ profile.name }}</span>
+      </a>
+
+      <div class="relative hidden items-center md:flex">
+        <span
+          #indicator
+          class="absolute left-0 top-0 h-full rounded-full bg-surface-2 opacity-0 transition-all duration-500 ease-out-expo"
+          aria-hidden="true"
+        ></span>
+        @for (link of links; track link.id) {
+          <a
+            #navLink
+            [attr.data-id]="link.id"
+            [href]="'#' + link.id"
+            (click)="go($event, link.id)"
+            [attr.aria-current]="scrollState.activeSection() === link.id ? 'location' : null"
+            class="relative z-10 rounded-full px-4 py-2 text-sm font-medium text-muted transition-colors hover:text-ink aria-[current]:text-ink"
+            >{{ link.label }}</a
+          >
+        }
+      </div>
+
+      <div class="flex items-center gap-1.5">
+        <button
+          type="button"
+          (click)="toggleTheme($event)"
+          class="relative grid h-11 w-11 place-items-center overflow-hidden rounded-full text-ink transition-colors hover:bg-surface-2"
+          [attr.aria-label]="isDark() ? 'Switch to light theme' : 'Switch to dark theme'"
+        >
+          <span
+            class="material-icons-round absolute text-[20px] transition-all duration-500 ease-out-expo"
+            [class.rotate-90]="isDark()"
+            [class.scale-0]="isDark()"
+            [class.opacity-0]="isDark()"
+            aria-hidden="true"
+            >dark_mode</span
+          >
+          <span
+            class="material-icons-round absolute text-[20px] transition-all duration-500 ease-out-expo"
+            [class.-rotate-90]="!isDark()"
+            [class.scale-0]="!isDark()"
+            [class.opacity-0]="!isDark()"
+            aria-hidden="true"
+            >light_mode</span
+          >
+        </button>
+
+        <a
+          [href]="profile.resume"
+          target="_blank"
+          rel="noopener"
+          (click)="resume.handleClick($event)"
+          class="hidden h-11 items-center gap-1.5 rounded-full bg-ink px-5 text-sm font-semibold text-bg transition-transform duration-300 hover:-translate-y-0.5 sm:inline-flex"
+        >
+          Resume
+          <span class="material-icons-round text-[18px]" aria-hidden="true">description</span>
+        </a>
+
+        <button
+          type="button"
+          (click)="toggleMenu()"
+          class="grid h-11 w-11 place-items-center rounded-full text-ink transition-colors hover:bg-surface-2 md:hidden"
+          [attr.aria-expanded]="menuOpen()"
+          aria-controls="mobile-menu"
+          [attr.aria-label]="menuOpen() ? 'Close menu' : 'Open menu'"
+        >
+          <span class="material-icons-round text-[22px]" aria-hidden="true">{{ menuOpen() ? 'close' : 'menu' }}</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile sheet -->
+    <div
+      id="mobile-menu"
+      class="glass mt-2 grid overflow-hidden rounded-[1.75rem] transition-all duration-500 ease-out-expo md:hidden"
+      [class.grid-rows-[1fr]]="menuOpen()"
+      [class.grid-rows-[0fr]]="!menuOpen()"
+      [class.opacity-0]="!menuOpen()"
+      [class.pointer-events-none]="!menuOpen()"
+      [class.border-transparent]="!menuOpen()"
+      [attr.inert]="menuOpen() ? null : ''"
+    >
+      <div class="min-h-0">
+        <ul class="flex flex-col p-3">
+          @for (link of links; track link.id; let i = $index) {
+            <li>
+              <a
+                [href]="'#' + link.id"
+                (click)="go($event, link.id)"
+                class="flex items-center justify-between rounded-2xl px-4 py-3.5 font-display text-lg font-medium text-ink transition-colors hover:bg-surface-2"
+              >
+                {{ link.label }}
+                <span class="font-mono text-xs text-muted">0{{ i + 1 }}</span>
+              </a>
+            </li>
+          }
+          <li class="mt-2">
+            <a [href]="profile.resume" target="_blank" rel="noopener" (click)="openResume($event)" class="btn btn-primary w-full">
+              View Resume
+              <span class="material-icons-round text-[18px]" aria-hidden="true">description</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>

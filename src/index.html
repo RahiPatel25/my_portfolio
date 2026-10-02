@@ -2,12 +2,64 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Rahi Patel</title>
+    <title>Rahi Patel — Senior Flutter Developer</title>
     <base href="/" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta
+      name="description"
+      content="Rahi Patel is a Senior Flutter Developer with 5+ years building scalable, production-grade cross-platform apps for Android, iOS and Web using Dart, Clean Architecture, BLoC and Firebase."
+    />
+    <meta name="author" content="Rahi Patel" />
+    <meta name="theme-color" content="#f6f8fc" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#04060c" media="(prefers-color-scheme: dark)" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Rahi Patel — Senior Flutter Developer" />
+    <meta
+      property="og:description"
+      content="Building scalable, production-grade Flutter applications with clean architecture and performance-focused engineering."
+    />
+    <meta property="og:image" content="images/rahi-profile.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap"
+    />
+
+    <!-- Apply the saved / system theme before first paint to avoid a flash. -->
+    <script>
+      (function () {
+        var root = document.documentElement;
+        root.classList.add('js');
+        var theme = null;
+        try { theme = localStorage.getItem('rp-theme'); } catch (e) {}
+        if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          root.classList.add('dark');
+        }
+      })();
+    </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Rahi Patel",
+        "jobTitle": "Senior Flutter Developer",
+        "email": "mailto:rahi34499@gmail.com",
+        "telephone": "+91 9537209998",
+        "address": { "@type": "PostalAddress", "addressLocality": "Ahmedabad", "addressCountry": "IN" },
+        "worksFor": { "@type": "Organization", "name": "Indianic Infotech Ltd" },
+        "alumniOf": { "@type": "CollegeOrUniversity", "name": "Parul University" },
+        "sameAs": ["http://linkedin.com/in/rahi-patel-656178186/"],
+        "knowsAbout": ["Flutter", "Dart", "Flutter Web", "BLoC", "Clean Architecture", "Firebase", "GraphQL", "Android", "iOS"]
+      }
+    </script>
   </head>
-  <body>
+  <body class="noise">
     <app-root></app-root>
   </body>
 </html>
