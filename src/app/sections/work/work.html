@@ -1,0 +1,98 @@
+<section #section id="work" class="relative" [style.height]="sectionHeight()">
+  <div class="flex flex-col" [class]="pinned() ? 'sticky top-0 h-[100svh] overflow-hidden pb-8 pt-24' : 'py-28'">
+    <div appReveal class="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 sm:px-6 md:flex-row md:items-end md:justify-between lg:px-8">
+      <div>
+        <p class="eyebrow">Portfolio</p>
+        <h2 class="section-title mt-5">Curated <span class="text-gradient">work.</span></h2>
+      </div>
+      <div class="flex items-center gap-4">
+        <p class="max-w-sm text-muted">Production apps across sports, enterprise, real estate, VOIP and healthcare.</p>
+        @if (pinned()) {
+          <div class="hidden h-1 w-32 shrink-0 overflow-hidden rounded-full bg-line lg:block" aria-hidden="true">
+            <div #progress class="h-full origin-left scale-x-0 rounded-full bg-gradient-to-r from-brand to-brand-2"></div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <ul
+      #track
+      appRevealGroup
+      class="gap-6 px-4 sm:px-6 lg:px-8"
+      [class]="pinned() ? 'mt-8 flex min-h-0 w-max flex-1 items-stretch will-change-transform' : 'mx-auto mt-12 grid max-w-7xl md:grid-cols-2'"
+    >
+      @for (project of projects; track project.slug; let i = $index) {
+        <li data-reveal-item class="shrink-0" [class]="pinned() ? 'h-full max-h-[680px] w-[min(600px,80vw)]' : ''" [style.--accent]="project.accent">
+          <article appTilt="5" class="card group relative flex h-full flex-col overflow-hidden rounded-[2rem]">
+            <!-- Visual -->
+            <div class="relative overflow-hidden bg-[#0a0a0a]" [class]="pinned() ? 'min-h-24 flex-1' : 'h-56 shrink-0'">
+              <div
+                class="absolute inset-0 z-10 mix-blend-screen opacity-30 transition-opacity duration-700 group-hover:opacity-60"
+                style="background: radial-gradient(60% 80% at 50% 60%, color-mix(in oklab, var(--accent) 40%, transparent), transparent 70%)"
+                aria-hidden="true"
+              ></div>
+              <img
+                [ngSrc]="project.image"
+                width="800"
+                height="800"
+                [alt]="project.name + ' artwork'"
+                class="relative mx-auto h-full w-auto object-contain transition-transform duration-700 ease-out-expo [mask-image:radial-gradient(closest-side,#000_65%,transparent)] group-hover:-translate-y-1 group-hover:scale-110"
+              />
+              <span class="absolute left-5 top-4 z-20 font-mono text-sm text-white/60">{{ (i + 1).toString().padStart(2, '0') }}</span>
+              <ul class="absolute right-4 top-4 z-20 flex gap-1.5" aria-label="Platforms">
+                @for (platform of project.platforms; track platform) {
+                  <li class="grid h-8 w-8 place-items-center rounded-full bg-white/10 text-white/85 backdrop-blur" [title]="platform">
+                    <span class="material-icons-round text-[16px]" aria-hidden="true">{{ platformIcons[platform] }}</span>
+                    <span class="sr-only">{{ platform }}</span>
+                  </li>
+                }
+              </ul>
+            </div>
+
+            <!-- Body -->
+            <div class="flex flex-col" [class]="pinned() ? 'shrink-0 p-6' : 'flex-1 p-7'">
+              <div class="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.16em] text-muted">
+                <span class="h-2 w-2 rounded-full" [style.background]="project.accent" aria-hidden="true"></span>
+                {{ project.category }}
+              </div>
+              <h3 class="mt-3 font-display text-2xl font-semibold tracking-tight text-ink" [class.md:text-[1.7rem]]="!pinned()">{{ project.name }}</h3>
+              <p class="mt-3 leading-relaxed text-muted" [class]="pinned() ? 'line-clamp-3 text-[15px]' : ''">{{ project.summary }}</p>
+
+              <ul class="grid gap-x-4 gap-y-2 text-sm text-ink sm:grid-cols-2" [class]="pinned() ? 'mb-4 mt-4' : 'mb-6 mt-5'" aria-label="Key features">
+                @for (h of project.highlights; track h) {
+                  <li class="flex items-start gap-2">
+                    <span class="material-icons-round mt-px text-[16px] text-brand-2" aria-hidden="true">check_circle</span>
+                    {{ h }}
+                  </li>
+                }
+              </ul>
+
+              <ul class="mt-auto flex flex-wrap gap-2 border-t border-line pt-5" aria-label="Technologies">
+                @for (tag of project.tags; track tag) {
+                  <li class="rounded-full border border-line bg-surface-2 px-3 py-1 font-mono text-[11px] font-medium uppercase tracking-wider text-muted">{{ tag }}</li>
+                }
+              </ul>
+            </div>
+            <div class="tilt-glare"></div>
+          </article>
+        </li>
+      }
+
+      <!-- Closing card -->
+      <li data-reveal-item class="shrink-0" [class]="pinned() ? 'h-full max-h-[680px] w-[420px]' : 'md:col-span-2'">
+        <div class="relative flex h-full min-h-72 flex-col justify-between overflow-hidden rounded-[2rem] bg-gradient-to-br from-[#0559b5] via-[#0a86d6] to-[#6d4cff] p-8 text-white">
+          <div class="bg-grid absolute inset-0 opacity-30" aria-hidden="true"></div>
+          <span class="material-icons-round relative text-[40px]" aria-hidden="true">auto_awesome</span>
+          <div class="relative">
+            <h3 class="font-display text-3xl font-semibold leading-tight">Have an app idea?</h3>
+            <p class="mt-3 text-white/80">More case studies are available on request. Let's talk about what you're building.</p>
+            <a href="#contact" (click)="go($event, 'contact')" class="btn mt-6 bg-white text-[#0559b5] hover:-translate-y-0.5">
+              Start a conversation
+              <span class="material-icons-round text-[20px]" aria-hidden="true">arrow_forward</span>
+            </a>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>

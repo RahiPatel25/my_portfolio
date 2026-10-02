@@ -1,0 +1,91 @@
+<section id="about" class="relative py-28 md:py-36">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="grid items-start gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
+      <!-- Portrait -->
+      <div appReveal="left" class="mx-auto w-full max-w-md lg:sticky lg:top-28">
+        <div appTilt="6" class="card relative overflow-hidden p-3">
+          <div class="relative overflow-hidden rounded-[1.4rem]">
+            <img
+              [ngSrc]="profile.photo"
+              width="800"
+              height="800"
+              alt="Portrait of Rahi Patel"
+              class="aspect-[4/5] w-full object-cover object-top transition-transform duration-700 hover:scale-105"
+            />
+            <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent p-5 pt-20 text-white">
+              <div class="font-display text-xl font-semibold">{{ profile.name }}</div>
+              <div class="text-sm text-white/75">{{ profile.title }} · {{ profile.location }}</div>
+            </div>
+          </div>
+          <div class="tilt-glare"></div>
+        </div>
+
+        <dl class="mt-4 grid grid-cols-2 gap-3">
+          @for (stat of stats; track stat.label) {
+            <div class="card rounded-2xl p-4">
+              <dt class="sr-only">{{ stat.label }}</dt>
+              <dd class="font-display text-3xl font-semibold tracking-tight text-ink">
+                <span [appCountUp]="stat.value">{{ stat.value }}</span><span class="text-brand-2">{{ stat.suffix }}</span>
+              </dd>
+              <dd class="mt-1 text-xs leading-snug text-muted" aria-hidden="true">{{ stat.label }}</dd>
+            </div>
+          }
+        </dl>
+      </div>
+
+      <!-- Copy -->
+      <div>
+        <div appReveal>
+          <p class="eyebrow">About me</p>
+          <h2 class="section-title mt-5">Engineering cross-platform <span class="text-gradient">excellence.</span></h2>
+          <p class="mt-8 text-xl leading-relaxed text-ink md:text-2xl md:leading-relaxed">{{ lead }}</p>
+          <p class="mt-6 text-lg leading-relaxed text-muted">{{ paragraphs[0] }}</p>
+        </div>
+
+        <ul appRevealGroup class="mt-12 grid gap-4 sm:grid-cols-2">
+          @for (cap of capabilities; track cap.title) {
+            <li data-reveal-item appSpotlight class="card rounded-3xl p-6">
+              <span class="grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-brand/15 to-accent/15 text-brand">
+                <span class="material-icons-round text-[24px]" aria-hidden="true">{{ cap.icon }}</span>
+              </span>
+              <h3 class="mt-5 font-display text-lg font-semibold text-ink">{{ cap.title }}</h3>
+              <p class="mt-2 text-[15px] leading-relaxed text-muted">{{ cap.description }}</p>
+            </li>
+          }
+        </ul>
+
+        <div appReveal class="mt-10">
+          <div
+            id="about-more"
+            class="grid transition-all duration-700 ease-out-expo"
+            [class.grid-rows-[1fr]]="expanded()"
+            [class.grid-rows-[0fr]]="!expanded()"
+            [class.opacity-0]="!expanded()"
+            [attr.inert]="expanded() ? null : ''"
+          >
+            <div class="min-h-0 space-y-5 overflow-hidden text-lg leading-relaxed text-muted">
+              @for (p of paragraphs.slice(1); track $index) {
+                <p>{{ p }}</p>
+              }
+            </div>
+          </div>
+          <button
+            type="button"
+            (click)="expanded.set(!expanded())"
+            [attr.aria-expanded]="expanded()"
+            aria-controls="about-more"
+            class="group mt-4 inline-flex items-center gap-2 font-semibold text-brand"
+          >
+            {{ expanded() ? 'Show less' : 'Read full story' }}
+            <span
+              class="material-icons-round text-[20px] transition-transform duration-500"
+              [class.rotate-180]="expanded()"
+              aria-hidden="true"
+              >expand_more</span
+            >
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

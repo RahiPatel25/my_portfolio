@@ -1,0 +1,55 @@
+<section id="skills" class="relative overflow-hidden bg-surface-2/50 py-28 md:py-36">
+  <div class="pointer-events-none absolute inset-0 -z-0" aria-hidden="true">
+    <div class="aurora right-[-10%] top-[10%] h-[30rem] w-[30rem] bg-[#13b9fd]/20"></div>
+  </div>
+
+  <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div appReveal class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+      <div>
+        <p class="eyebrow">Capabilities</p>
+        <h2 class="section-title mt-5">Technical skills<br class="hidden sm:block" /> &amp; <span class="text-gradient">expertise.</span></h2>
+      </div>
+      <p class="max-w-md text-lg leading-relaxed text-muted">
+        A Flutter-first toolkit for designing, building, testing and shipping apps across mobile and web.
+      </p>
+    </div>
+
+    <ul appRevealGroup [revealStagger]="0.06" class="mt-16 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      @for (group of groups; track group.category) {
+        <li
+          data-reveal-item
+          appSpotlight
+          class="card group relative flex flex-col overflow-hidden rounded-3xl p-7"
+          [class.md:col-span-2]="group.featured"
+        >
+          @if (group.featured) {
+            <app-flutter-logo
+              class="pointer-events-none absolute -right-6 -top-6 h-44 w-44 text-brand-2/[0.07] transition-transform duration-700 ease-out-expo group-hover:-rotate-12 group-hover:scale-110"
+            />
+          }
+          <div class="flex items-center gap-4">
+            <span
+              class="grid h-12 w-12 shrink-0 place-items-center rounded-2xl transition-transform duration-500 ease-out-expo group-hover:-rotate-6 group-hover:scale-110"
+              [class]="
+                group.featured
+                  ? 'bg-gradient-to-br from-[#0559b5] to-[#13b9fd] text-white shadow-[0_10px_24px_-8px_rgb(19_185_253/0.7)]'
+                  : 'bg-surface-2 text-brand'
+              "
+            >
+              <span class="material-icons-round text-[24px]" aria-hidden="true">{{ group.icon }}</span>
+            </span>
+            <h3 class="font-display text-lg font-semibold leading-snug text-ink" [class.text-2xl]="group.featured">
+              {{ group.category }}
+            </h3>
+          </div>
+
+          <ul class="mt-6 flex flex-wrap gap-2" [attr.aria-label]="group.category">
+            @for (skill of group.skills; track skill) {
+              <li class="chip transition-colors duration-300 hover:border-brand-2 hover:text-brand">{{ skill }}</li>
+            }
+          </ul>
+        </li>
+      }
+    </ul>
+  </div>
+</section>

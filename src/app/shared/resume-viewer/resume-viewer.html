@@ -1,0 +1,54 @@
+<dialog
+  #dialog
+  (close)="onClose()"
+  (click)="onDialogClick($event)"
+  aria-labelledby="resume-viewer-title"
+  class="card m-auto h-[92svh] max-h-none w-[min(1000px,94vw)] max-w-none overflow-hidden p-0 text-ink backdrop:bg-[#04060c]/60 backdrop:backdrop-blur-sm"
+>
+  @if (viewer.isOpen()) {
+    <div class="flex h-full flex-col">
+      <header class="flex items-center gap-3 border-b border-line px-4 py-3 sm:px-6">
+        <span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-brand/10 text-brand">
+          <span class="material-icons-round text-[22px]" aria-hidden="true">description</span>
+        </span>
+        <div class="min-w-0 leading-tight">
+          <h2 id="resume-viewer-title" class="truncate font-display text-lg font-semibold">{{ profile.name }} — Resume</h2>
+          <p class="truncate text-xs text-muted">{{ profile.title }} · PDF</p>
+        </div>
+
+        <div class="ml-auto flex items-center gap-1.5">
+          <a
+            [href]="profile.resume"
+            download="Rahi-Patel-Resume.pdf"
+            class="inline-flex h-10 items-center gap-1.5 rounded-full bg-ink px-4 text-sm font-semibold text-bg transition-transform duration-300 hover:-translate-y-0.5"
+          >
+            <span class="material-icons-round text-[18px]" aria-hidden="true">download</span>
+            <span class="hidden sm:inline">Download</span>
+            <span class="sr-only sm:hidden">Download resume</span>
+          </a>
+          <a
+            [href]="profile.resume"
+            target="_blank"
+            rel="noopener"
+            class="grid h-10 w-10 place-items-center rounded-full text-ink transition-colors hover:bg-surface-2"
+            aria-label="Open resume in a new tab"
+            title="Open in new tab"
+          >
+            <span class="material-icons-round text-[20px]" aria-hidden="true">open_in_new</span>
+          </a>
+          <button
+            type="button"
+            (click)="viewer.close()"
+            class="grid h-10 w-10 place-items-center rounded-full text-ink transition-colors hover:bg-surface-2"
+            aria-label="Close resume viewer"
+            title="Close"
+          >
+            <span class="material-icons-round text-[22px]" aria-hidden="true">close</span>
+          </button>
+        </div>
+      </header>
+
+      <iframe [src]="src" [title]="profile.name + ' resume (PDF)'" class="min-h-0 w-full flex-1 bg-surface-2"></iframe>
+    </div>
+  }
+</dialog>
