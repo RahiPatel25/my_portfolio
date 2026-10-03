@@ -22,8 +22,7 @@ export const PROFILE = {
   phoneHref: 'tel:+919537209998',
   linkedin: 'http://linkedin.com/in/rahi-patel-656178186/',
   resume: 'rahi-patel-resume.pdf',
-  photo: 'images/rahi-profile.jpg',
-  photoThumb: 'images/rahi-profile-sm.jpg',
+  photo: 'images/rahi-profile.png',
 } as const;
 
 export const NAV_LINKS: NavLink[] = [
@@ -264,8 +263,8 @@ export const EDUCATION: Education[] = [
 
 export const ACHIEVEMENTS: Achievement[] = [
   { title: 'Pride of the Month', issuer: 'Indianic Infotech Ltd.', icon: 'emoji_events' },
-  { title: 'Flutter Forward Extended', issuer: 'Ahmedabad', icon: 'flutter_dash', image: 'images/dash-sm.jpg' },
-  { title: 'GDG DevFest 2022', issuer: 'Google Developer Groups', icon: 'groups', image: 'images/rahi-devfest-sm.jpg' },
+  { title: 'Flutter Forward Extended', issuer: 'Ahmedabad', icon: 'flutter_dash' },
+  { title: 'GDG DevFest 2022', issuer: 'Google Developer Groups', icon: 'groups' },
   { title: 'Flutter Crash Course', issuer: 'Angela Yu (Udemy)', icon: 'school' },
 ];
 
