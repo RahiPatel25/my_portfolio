@@ -35,7 +35,7 @@ export const NAV_LINKS: NavLink[] = [
 
 export const STATS: Stat[] = [
   { value: 5, suffix: '+', label: 'Years building apps' },
-  { value: 6, suffix: '', label: 'Featured products' },
+  { value: 12, suffix: '+', label: 'Featured products' },
   { value: 3, suffix: '', label: 'Platforms: Android · iOS · Web' },
   { value: 4, suffix: '', label: 'Awards & community events' },
 ];
