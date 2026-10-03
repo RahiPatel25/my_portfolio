@@ -8,7 +8,6 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { NgOptimizedImage } from '@angular/common';
 import { scroll } from 'motion';
 import { PROJECTS } from '../../data/portfolio.data';
 import { ScrollStateService } from '../../core/scroll-state.service';
@@ -29,7 +28,7 @@ const PLATFORM_ICONS: Record<string, string> = {
  */
 @Component({
   selector: 'app-work',
-  imports: [NgOptimizedImage, RevealDirective, RevealGroupDirective, TiltDirective],
+  imports: [RevealDirective, RevealGroupDirective, TiltDirective],
   templateUrl: './work.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
